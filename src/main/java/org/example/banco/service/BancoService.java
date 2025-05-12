@@ -56,4 +56,12 @@ public class BancoService {
         }
     }
 
+    /* lambdas */
+
+    public void mostrarCuentasSaldoAlto() {
+        cuentas.values().stream()
+                .filter(c -> c.getSaldo() > 10000)
+                .forEach(Cuenta::mostrarDatos);
+    }
+    
 }
