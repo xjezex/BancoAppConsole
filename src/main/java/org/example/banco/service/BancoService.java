@@ -63,5 +63,13 @@ public class BancoService {
                 .filter(c -> c.getSaldo() > 10000)
                 .forEach(Cuenta::mostrarDatos);
     }
-    
+
+    public void getTitularesOrdenados() {
+        cuentas.values().stream()
+                .map(Cuenta::getTitular)
+                .sorted()
+                .forEach(System.out::println);
+    }
+
+
 }
