@@ -17,7 +17,8 @@ public class BancoApp {
             System.out.println("3. Retirar");
             System.out.println("4. Ver cuentas");
             System.out.println("5. Ver cuentas con saldo Alto");
-            System.out.println("6. Ver Titulares Ordenados Alfabeticamente");
+            System.out.println("6. Ver titulares");
+            System.out.println("7. Ver Titulares Ordenados Alfabeticamente");
             System.out.println("0. Salir");
             System.out.println("------------------");
             System.out.print("Seleccione una opción: ");
@@ -52,7 +53,8 @@ public class BancoApp {
                 }
                 case 4 -> banco.mostrarCuentas();
                 case 5 -> banco.mostrarCuentasSaldoAlto();
-                case 6 -> banco.getTitularesOrdenados();
+                case 6 -> banco.getTitulares();
+                case 7 -> banco.getTitularesOrdenados();
                 case 0 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción inválida.");
             }

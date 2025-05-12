@@ -60,8 +60,14 @@ public class BancoService {
 
     public void mostrarCuentasSaldoAlto() {
         cuentas.values().stream()
-                .filter(c -> c.getSaldo() > 10000)
+                .filter(c -> c.getSaldo() > 100000)
                 .forEach(Cuenta::mostrarDatos);
+    }
+
+    public void getTitulares(){
+        cuentas.values().stream()
+                .map(Cuenta::getTitular)
+                .forEach(System.out::println);
     }
 
     public void getTitularesOrdenados() {
