@@ -4,78 +4,76 @@ import org.example.banco.model.Cuenta;
 import org.example.banco.model.CuentaAhorro;
 import org.example.banco.model.CuentaCorriente;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BancoService {
     private final Map<String, Cuenta> cuentas = new HashMap<>();
 
-    public void crearCuenta(String numero, String titular, String tipo) {
-        if (cuentas.containsKey(numero)) {
-            System.out.println("Ya existe una cuenta con ese número.");
-            return;
-        }
+    public boolean crearCuenta(String numero, String titular, String tipo) {
+        if (cuentas.containsKey(numero)) return false;
 
         Cuenta cuenta;
-        if (tipo.equalsIgnoreCase("AHORRO")) {
-            cuenta = new CuentaAhorro(numero, titular);
-        } else if (tipo.equalsIgnoreCase("CORRIENTE")) {
-            cuenta = new CuentaCorriente(numero, titular);
-        } else {
-            System.out.println("Tipo de cuenta inválido.");
-            return;
+        switch (tipo.toUpperCase()) {
+            case "AHORRO" -> cuenta = new CuentaAhorro(numero, titular);
+            case "CORRIENTE" -> cuenta = new CuentaCorriente(numero, titular);
+            default -> throw new IllegalArgumentException("Tipo de cuenta inválido");
         }
 
         cuentas.put(numero, cuenta);
-        System.out.println("✅ Cuenta creada con éxito.");
+        return true;
     }
 
-    public void depositar(String numero, double monto) {
-        Cuenta c = cuentas.get(numero);
-        if (c != null) {
-            c.depositar(monto);
-        } else {
-            System.out.println("Cuenta no encontrada.");
+    public boolean depositar(String numero, double monto) {
+        Cuenta cuenta = cuentas.get(numero);
+        if (cuenta != null) {
+            cuenta.depositar(monto);
+            return true;
         }
+        return false;
     }
 
-    public void retirar(String numero, double monto) {
-        Cuenta c = cuentas.get(numero);
-        if (c != null) {
-            c.retirar(monto);
-        } else {
-            System.out.println("Cuenta no encontrada.");
+    public boolean retirar(String numero, double monto) {
+        Cuenta cuenta = cuentas.get(numero);
+        if (cuenta != null) {
+            cuenta.retirar(monto);
+            return true;
         }
+        return false;
     }
 
-    public void mostrarCuentas() {
-        if (cuentas.isEmpty()) {
-            System.out.println("No hay cuentas registradas.");
-        } else {
-            cuentas.values().forEach(Cuenta::mostrarDatos);
-        }
+    public List<Cuenta> obtenerCuentas() {
+        return new ArrayList<>(cuentas.values());
     }
 
     /* lambdas */
 
-    public void mostrarCuentasSaldoAlto() {
-        cuentas.values().stream()
-                .filter(c -> c.getSaldo() > 100000)
-                .forEach(Cuenta::mostrarDatos);
+    public List<Cuenta> obtenerCuentasSaldoMayorA(double limite) {
+        return cuentas.values().stream()
+                .filter(c -> c.getSaldo() > limite)
+                .toList();
     }
 
-    public void getTitulares(){
-        cuentas.values().stream()
+    public List<String> obtenerTitulares() {
+        return cuentas.values().stream()
                 .map(Cuenta::getTitular)
-                .forEach(System.out::println);
+                .toList();
     }
 
-    public void getTitularesOrdenados() {
-        cuentas.values().stream()
+    public List<String> obtenerTitularesOrdenados() {
+        return cuentas.values().stream()
                 .map(Cuenta::getTitular)
                 .sorted()
-                .forEach(System.out::println);
+                .toList();
     }
 
+    public double calcularSaldoPromedio() {
+        return cuentas.values().stream()
+                .mapToDouble(Cuenta::getSaldo)
+                .average()
+                .orElse(0.0);
+    }
 
 }
