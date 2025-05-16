@@ -3,6 +3,10 @@ package org.example.banco.model;
 public class CuentaCorriente extends Cuenta {
     private static final double LIMITE_SOBREGIRO = 5000.0;
 
+    public CuentaCorriente(String numero, String titular, double saldoInicial) {
+        super(numero, titular, saldoInicial);
+    }
+
     public CuentaCorriente(String numero, String titular) {
         super(numero, titular);
     }

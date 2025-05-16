@@ -11,6 +11,12 @@ public abstract class Cuenta {
         this.saldo = 0.0;
     }
 
+    public Cuenta(String numero, String titular, double saldoInicial) {
+        this.numero = numero;
+        this.titular = titular;
+        this.saldo = saldoInicial;
+    }
+
     public void depositar(double monto){
         if (monto > 0) {
           saldo += monto;
