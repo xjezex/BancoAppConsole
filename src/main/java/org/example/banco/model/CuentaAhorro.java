@@ -10,4 +10,14 @@ public class CuentaAhorro extends Cuenta {
     public String getTipo() {
         return "AHORRO";
     }
+
+    @Override
+    public void retirar(double monto) {
+        if (monto <= getSaldo()) {
+            setSaldo (getSaldo() - monto);
+            System.out.println("✅ Retiro exitoso (Cuenta Ahorro).");
+        } else {
+            System.out.println("❌ Saldo insuficiente (Cuenta Ahorro).");
+        }
+    }
 }

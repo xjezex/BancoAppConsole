@@ -17,11 +17,7 @@ public abstract class Cuenta {
         }
     }
 
-    public void retirar(double monto) {
-        if (monto > 0){
-            saldo -= monto;
-        }
-    }
+    public abstract void retirar(double monto);
 
     public String getNumero() {
         return numero;
@@ -33,6 +29,10 @@ public abstract class Cuenta {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public void setSaldo(double nuevoSaldo) {
+        this.saldo = nuevoSaldo;
     }
 
     public abstract String getTipo();

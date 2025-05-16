@@ -8,11 +8,12 @@ public class CuentaCorriente extends Cuenta {
     }
 
     @Override
-    public void retirar(double monto){
-        if(monto > 0 && monto <= saldo + LIMITE_SOBREGIRO) {
-            saldo -= monto;
+    public void retirar(double monto) {
+        if (monto <= getSaldo() + LIMITE_SOBREGIRO) {
+            setSaldo(getSaldo() - monto);
+            System.out.println("✅ Retiro exitoso (Cuenta Corriente con sobregiro si fue necesario).");
         } else {
-            System.out.println("Fondos Insuficientes. Saldo: "+saldo+" - Sobregiro Permitido: "+LIMITE_SOBREGIRO);
+            System.out.println("❌ Límite de sobregiro excedido (Cuenta Corriente).");
         }
     }
 
